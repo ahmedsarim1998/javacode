@@ -1,0 +1,149 @@
+import java.util.Scanner;
+
+class game{
+    boolean haveWon(char[][] board, char player) {
+        // check the rows
+        for (int row = 0; row < board.length; row++) {
+          if (board[row][0] == player && board[row][1] == player && board[row][2] == player) {
+            return true;
+          }
+        }
+    
+        // check for col
+        for (int col = 0; col < board[0].length; col++) {
+          if (board[0][col] == player && board[1][col] == player && board[2][col] == player) {
+            return true;
+          }
+        }
+    
+        // diagonal
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player) {
+          return true;
+        }
+    
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player) {
+          return true;
+        }
+        return false;
+      }
+
+      public void printBoard(char board[][]){
+        System.out.println(board[0][0]+" | "+ board[0][1]+" | "+board[0][2]);
+        System.out.println(" -------- " );
+        System.out.println(board[1][0]+" | "+ board[1][1]+" | "+board[1][2]);
+        System.out.println(" -------- " );
+        System.out.println(board[2][0]+" | "+ board[2][1]+" | "+board[2][2]);
+      }
+
+}
+
+
+
+public class tic {
+
+    public static void main(String[] args) {
+
+        char p1 = 'x';
+        char p2 = 'o';
+        Scanner sc = new Scanner(System.in);
+        game t = new game();
+        char input;
+        int loc = -1;
+        int ctr = 0;
+
+
+        char[][] board = new char[3][3];
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                board[row][col] = ' ';
+      }
+    }
+    System.out.println("This is a 2 player game");
+    System.out.println("The game will alternate between player 1 and 2 once started");
+    System.out.println("This will continue until the board is out of spaces or one of the player wins");
+    t.printBoard(board);
+
+
+    System.out.println("Pick any Number from 1-9 and you mark will be placed on that location of the board");
+    System.out.println("The board layout is: ");
+    System.out.println("|1 | 2 | 3|");
+    System.out.println(" -------- " );
+    System.out.println("|4 | 5 | 6|");
+    System.out.println(" -------- " );
+    System.out.println("|7 | 8 | 9|");
+
+    while (ctr<10){
+        if(ctr%2==0){
+            input = p1;
+            System.out.println("Player 1's Turn: X");
+        } else{
+            input = p2;
+            System.out.println("Player 2's Turn: O");
+        }
+
+        System.out.println("Enter the number 1-9 you want to place your marker at: ");
+        loc = sc.nextInt();
+        switch (loc) {
+            case 1:
+                board[0][0] = input;
+                ctr++;
+                break;
+            case 2:
+                board[0][1] = input;
+                ctr++;
+                break;
+            case 3:
+                board[0][2] = input;
+                ctr++;
+                break;
+            case 4:
+                board[1][0] = input;
+                ctr++;
+                break;
+            case 5:
+                board[1][1] = input;
+                ctr++;
+                break;
+            case 6:
+                board[1][2] = input;
+                ctr++;
+                break;
+            case 7:
+                board[2][0] = input;
+                ctr++;
+                break;
+            case 8:
+                board[2][1] = input;
+                ctr++;
+                break;
+            case 9:
+                board[2][2] = input;
+                ctr++;
+                break;
+            default:
+                System.out.println("Invalid position! Please choose a number between 1 and 9.");
+        }
+
+        t.printBoard(board);
+        
+        if (t.haveWon(board,input)== true){
+            if(ctr%2==0){
+                input = p1;
+                System.out.println("Player 2 has won: O");
+            } else{
+                input = p2;
+                System.out.println("Player 1 has won: X");
+            }
+            break;
+        }
+        if (ctr == 9){
+            System.out.println("No one won");
+            break;
+        }
+        
+
+    }
+
+        
+    }
+}
